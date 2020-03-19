@@ -78,8 +78,7 @@ class LoginModal extends Component {
 
         // Attempt to login 
         this.props.login(user);
-
-    }
+    };
 
     render() {
         return(

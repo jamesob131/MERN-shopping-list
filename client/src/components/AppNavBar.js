@@ -31,8 +31,22 @@ class AppNavBar extends Component {
     }
 
     render() {
-        const { isAuthenicated, user } = this.props.auth;
-/*
+        const { user, isAuthenticated } = this.props.auth;
+        
+        const guestLinks = (
+            <Fragment>
+
+                <NavItem>
+                    <RegisterModal />
+                </NavItem>
+
+                <NavItem>
+                    <LoginModal />
+                </NavItem>
+
+            </Fragment>
+        );
+
         const authLinks = (
             <Fragment> 
                 <NavItem>
@@ -47,20 +61,6 @@ class AppNavBar extends Component {
             </Fragment>
         );
 
-        const guestLinks = (
-            <Fragment>
-
-                <NavItem>
-                    <RegisterModal />
-                </NavItem>
-
-                <NavItem>
-                    <LoginModal />
-                </NavItem>
-
-            </Fragment>
-        );
-*/      
         return(
             <div>
                 <Navbar color="dark" dark expand="sm" className="mb-5">
@@ -69,26 +69,18 @@ class AppNavBar extends Component {
                         <NavbarToggler onClick={this.toggle} />
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <RegisterModal />
-                                </NavItem>
-                                <NavItem>
-                                    <LoginModal />
-                                </NavItem>
-                                <NavItem>
-                                    <Logout />
-                                </NavItem>
+                                { isAuthenticated ? authLinks: guestLinks }
                             </Nav>
                         </Collapse>
                     </Container>
                 </Navbar>
             </div>
         );
-    }
+    };
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, null)(AppNavBar);
